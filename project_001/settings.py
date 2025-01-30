@@ -121,3 +121,37 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+## 보안 관련 설정
+
+# 비밀번호 암호화 방식 설정
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+]
+
+# CSRF 보안 강화
+CSRF_COOKIE_SECURE = True         # HTTPS에서만 CSRF 쿠키 전송
+CSRF_COOKIE_HTTPONLY = True       # JavaScript에서 CSRF 토큰 접근 불가 (XSS 방어)
+CSRF_COOKIE_SAMESITE = 'Strict'   # 다른 사이트에서 CSRF 쿠키 자동 전송 방지
+CSRF_TRUSTED_ORIGINS = ['https://trusted.com']  # 신뢰할 수 있는 도메인 지정
+
+# 세션 보안 설정
+SESSION_COOKIE_SECURE = True      # HTTPS에서만 세션 쿠키 전송
+SESSION_COOKIE_HTTPONLY = True    # JavaScript에서 세션 쿠키 접근 차단
+SESSION_COOKIE_SAMESITE = 'Strict' # 자동 로그인 CSRF 공격 방지
+
+# HSTS 설정 (HTTPS 강제)
+SECURE_HSTS_SECONDS = 31536000    # 1년 동안 HTTPS 강제 적용
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # 서브도메인도 HTTPS 적용
+SECURE_HSTS_PRELOAD = True        # 브라우저에서 미리 HTTPS로만 연결
+
+# CORS 설정 (CORS 기반 CSRF 방어)
+CORS_ALLOWED_ORIGINS = ['https://trusted.com']
+CORS_ALLOW_CREDENTIALS = True
+
+
