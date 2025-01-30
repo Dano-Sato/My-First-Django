@@ -5,6 +5,8 @@
 </head>
 <body>
     <h1>メモ一覧</h1>
+    <a href="{% url 'blog:post_new' %}">新規作成</a>
+    
     {% for post in posts %}
         <article>
             <h2>{{ post.title }}</h2>
