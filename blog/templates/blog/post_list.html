@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>メモブログ</title>
+</head>
+<body>
+    <h1>メモ一覧</h1>
+    {% for post in posts %}
+        <article>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.content }}</p>
+            <p>作成日: {{ post.created_date }}</p>
+        </article>
+    {% empty %}
+        <p>メモがありません。</p>
+    {% endfor %}
+</body>
+</html>
