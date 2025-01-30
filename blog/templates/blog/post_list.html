@@ -1,17 +1,22 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>メモブログ</title>
+    <meta name="csrf-token" content="{{ csrf_token }}"> {# CSRFトークンをメタタグに入れる #}
+    <script src="{% static 'blog/js/deletePost.js' %}"></script>
 </head>
 <body>
     <h1>メモ一覧</h1>
     <a href="{% url 'blog:post_new' %}">新規作成</a>
-    
+
     {% for post in posts %}
-        <article>
+        <article id="post-{{ post.id }}">
             <h2>{{ post.title }}</h2>
             <p>{{ post.content }}</p>
             <p>作成日: {{ post.created_date }}</p>
+            <button onclick="deletePost({{ post.id }})">削除</button>
         </article>
     {% empty %}
         <p>メモがありません。</p>
